@@ -116,6 +116,19 @@ public class AlumnowebJpaController implements Serializable {
         }
     }
 
+    public Alumnoweb validar(Alumnoweb u) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Alumnoweb.validar");
+            query.setParameter("ndniEstdWeb", u.getNdniEstdWeb());
+            query.setParameter("passEstd", u.getPassEstd());
+            u = (Alumnoweb) query.getSingleResult();
+            return u;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Alumnoweb findAlumnoweb(Integer id) {
         EntityManager em = getEntityManager();
         try {
@@ -138,11 +151,11 @@ public class AlumnowebJpaController implements Serializable {
         }
     }
     
-    public Alumnoweb findAlumnoByUsername(String username) {
+    public Alumnoweb findAlumnoByUsername(String dni) {
         EntityManager em = getEntityManager();
         try {
-            Query query = em.createNamedQuery("Alumnoweb.findByLogiAlu");
-            query.setParameter("logiEstd", username);
+            Query query = em.createNamedQuery("Alumnoweb.findByNdniEstdWeb");
+            query.setParameter("ndniEstdWeb", dni);
             return (Alumnoweb) query.getSingleResult();
         } catch (Exception e) {
             return null;
@@ -151,25 +164,12 @@ public class AlumnowebJpaController implements Serializable {
         }
     }
     
-    public Alumnoweb validar(Alumnoweb u) {
-        EntityManager em = getEntityManager();
-        try {
-            Query query = em.createNamedQuery("Alumnoweb.validar");
-            query.setParameter("logiEstd", u.getLogiEstd());
-            query.setParameter("passEstd", u.getPassEstd());
-            u = (Alumnoweb) query.getSingleResult();
-            return u;
-        } catch (Exception e) {
-            return null;
-        }
-    }
     
     public static void main(String[] args) {
         try {
             AlumnowebJpaController aluDAO = new AlumnowebJpaController();
-            Alumnoweb cl = aluDAO.validar(new Alumnoweb("kat","1234"));
-            Alumnoweb cl2 = aluDAO.findAlumnoByUsername("kat");
-            System.out.println(cl2.getAppaEstdWeb());
+            Alumnoweb cl = aluDAO.validar(new Alumnoweb("75165901","1234"));
+
             
             if(cl!=null){
                 System.out.println("Correcto");

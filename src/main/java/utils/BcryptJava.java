@@ -14,7 +14,7 @@ public class BcryptJava {
     }
 
     public static void main(String[] args) {
-        String textPlano = "12345";
+        String textPlano = "1234";
         String hash = BcryptJava.hashPassword(textPlano);
         System.out.println(hash);
 

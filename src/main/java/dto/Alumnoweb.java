@@ -36,7 +36,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Alumnoweb.findByFechNaciEstdWeb", query = "SELECT a FROM Alumnoweb a WHERE a.fechNaciEstdWeb = :fechNaciEstdWeb"),
     @NamedQuery(name = "Alumnoweb.findByLogiEstd", query = "SELECT a FROM Alumnoweb a WHERE a.logiEstd = :logiEstd"),
     @NamedQuery(name = "Alumnoweb.findByPassEstd", query = "SELECT a FROM Alumnoweb a WHERE a.passEstd = :passEstd"),
-    @NamedQuery(name = "Alumnoweb.validar", query = "SELECT a FROM Alumnoweb a WHERE a.logiEstd = :logiEstd AND a.passEstd = :passEstd"),
+    @NamedQuery(name = "Alumnoweb.validar", query = "SELECT a FROM Alumnoweb a WHERE a.ndniEstdWeb = :ndniEstdWeb AND a.passEstd = :passEstd"),
 })
 public class Alumnoweb implements Serializable {
 
@@ -100,14 +100,18 @@ public class Alumnoweb implements Serializable {
         this.passEstd = passEstd;
     }
 
-    public Alumnoweb(String logiEstd, String passEstd) {
-        this.logiEstd = logiEstd;
+    public Alumnoweb(String ndniEstdWeb, String passEstd) {
+        this.ndniEstdWeb = ndniEstdWeb;
         this.passEstd = passEstd;
     }
+
+    
 
     public Integer getCodiEstdWeb() {
         return codiEstdWeb;
     }
+    
+    
 
     public void setCodiEstdWeb(Integer codiEstdWeb) {
         this.codiEstdWeb = codiEstdWeb;
