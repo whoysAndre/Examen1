@@ -25,6 +25,9 @@ public class AlumnowebJpaController implements Serializable {
     public AlumnowebJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
+    public AlumnowebJpaController() {
+    }
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_Examen1_war_1.0-SNAPSHOTPU");
 
     public EntityManager getEntityManager() {
@@ -132,6 +135,47 @@ public class AlumnowebJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public Alumnoweb findAlumnoByUsername(String username) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Alumnoweb.findByLogiAlu");
+            query.setParameter("logiEstd", username);
+            return (Alumnoweb) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Alumnoweb validar(Alumnoweb u) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Alumnoweb.validar");
+            query.setParameter("logiEstd", u.getLogiEstd());
+            query.setParameter("passEstd", u.getPassEstd());
+            u = (Alumnoweb) query.getSingleResult();
+            return u;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public static void main(String[] args) {
+        try {
+            AlumnowebJpaController aluDAO = new AlumnowebJpaController();
+            Alumnoweb cl = aluDAO.validar(new Alumnoweb("kat","1234"));
+            Alumnoweb cl2 = aluDAO.findAlumnoByUsername("kat");
+            System.out.println(cl2.getAppaEstdWeb());
+            
+            if(cl!=null){
+                System.out.println("Correcto");
+            }
+            
+        } catch (Exception e) {
         }
     }
     
